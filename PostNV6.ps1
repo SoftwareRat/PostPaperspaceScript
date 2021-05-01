@@ -247,7 +247,6 @@ IF ((Test-Path -Path 'C:\Windows\System32\drivers\vbaudio_cable64_win7.sys' -Pat
 function SetWindowsSettings {
 ProgressWriter -Status "Changing Windows settings" -PercentComplete $PercentComplete
 # Enabling Autologon
-Write-Host -Object ('Enter your password for {0} to enable Autologon:' -f $env:USERNAME)
 ProgressWriter -Status "Enable Autologon" -PercentComplete $PercentComplete
 Set-SecureAutoLogon `
     -Username $env:USERNAME `
@@ -802,6 +801,7 @@ $host.ui.RawUI.WindowTitle = "Automate Paperspace CloudGaming Tasks [Version 1.0
 # Set WScriptShell to create Desktop shortcuts
 $WScriptShell = New-Object -ComObject WScript.Shell
 # Asking for password later to use it for auto-login on Windows
+Write-Host -Object ('Enter your password for {0} to enable Autologon:' -f $env:USERNAME)
 $PasswordSecureString = (Read-Host -AsSecureString)
 Clear-Host
 Write-Host -ForegroundColor DarkRed -BackgroundColor Black '
