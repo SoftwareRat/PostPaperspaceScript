@@ -40,6 +40,7 @@ function AdminCheck {
 if((Test-Path -Path 'C:\PaperspaceTools') -eq $true) {} Else {New-Item -Path 'C:\' -Name PaperspaceTools -Force -ItemType Directory| Out-Null} 
 if((Test-Path -Path 'C:\PaperspaceTools\Scripts') -eq $true) {} Else {New-Item -Path 'C:\PaperspaceTools\' -Name Script -Force -ItemType Directory | Out-Null} 
 if((Test-Path -Path 'C:\PaperspaceTools\logs') -eq $true) {} Else {New-Item -Path 'C:\PaperspaceTools\' -Name logs -Force -ItemType Directory | Out-Null}
+if((Test-Path -Path 'C:\PaperspaceTools\drivers') -eq $true) {} Else {New-Item -Path 'C:\PaperspaceTools\' -Name drivers -Force -ItemType Directory | Out-Null}
 if((Test-Path -Path 'C:\PaperspaceTools\GameStream') -eq $true) {} Else {New-Item -Path 'C:\PaperspaceTools\' -Name GameStream -Force -ItemType Directory | Out-Null}
 if((Test-Path -Path 'C:\PaperspaceTools\DirectX') -eq $true) {} Else {New-Item -Path 'C:\PaperspaceTools\' -Name DirectX -Force -ItemType Directory | Out-Null}
 Move-Item -Force "C:\PaperspaceTools\Scripts\Tools\*" -Destination "C:\PaperspaceTools\" | Out-Null
