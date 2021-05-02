@@ -162,10 +162,10 @@ function InstallCommonSoftware {
     $ChromePathUnsplit = (Get-ItemProperty -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Google Chrome\').UninstallString
     $ChromePathStillUnsplit = $ChromePathUnsplit.Split('"')
     $ChromePath = $ChromePathStillunsplit.Get(1)
-    Start-Process -FilePath '$ChromePath' -ArgumentList '--uninstall --channel --system-level --verbose-logging' -Wait
+    Start-Process -FilePath $ChromePath -ArgumentList '--uninstall --channel --system-level --verbose-logging --force-uninstall' -Wait
     # Uninstalling Razer Software
-    Start-Process -FilePath "C:\ProgramData\Razer\Synapse\ProductUpdates\Uninstallers\Razer Surround\Razer Surround_Uninstaller.exe" -ArgumentList '/S'
-    Start-Process -FilePath "C:\Windows\system32\msiexec.exe" -ArgumentList '/qb /x {0D78BEE2-F8FF-4498-AF1A-3FF81CED8AC6}' -Wait
+    Start-Process -FilePath "C:\ProgramData\Razer\Synapse\ProductUpdates\Uninstallers\Razer Surround\Razer Surround_Uninstaller.exe" -ArgumentList '/S' -NoNewWindow
+    Start-Process -FilePath "C:\Windows\system32\msiexec.exe" -ArgumentList '/qn /x {0D78BEE2-F8FF-4498-AF1A-3FF81CED8AC6}' -Wait
     # Downloading and installing 7-Zip
         ProgressWriter -Status "Installing 7-Zip" -PercentComplete $PercentComplete
         Start-Process -FilePath "$env:PROGRAMDATA\chocolatey\bin\choco.exe" -ArgumentList "install 7zip" -Wait -NoNewWindow | Out-Null
@@ -667,7 +667,7 @@ function GameStream {
     # Downloading Quadro Experience
     Write-Output 'Installing Quadro Experience'
     (New-Object System.Net.WebClient).DownloadFile("https://us.download.nvidia.com/QXP/QXPClient/1.2.0.19/NVIDIA_RTX_Experience_Setup_1.2.0.19.exe", "C:\PaperspaceTools\NVIDIA_RTX_Experience_Setup_1.2.0.19.exe")
-    Start-Process -FilePath "C:\PaperspaceTools\NVIDIA_RTX_Experience_Setup_1.2.0.19.exe" -ArgumentList '-s' -WorkingDirectory 'C:\PaperspaceTools' -Wait
+    Start-Process -FilePath "C:\PaperspaceTools\NVIDIA_RTX_Experience_Setup_1.2.0.19.exe" -ArgumentList '-s','-noreboot' -WorkingDirectory 'C:\PaperspaceTools' -Wait
     # Allowing GameStream Rules via Windows Firewall [for Moonlight]
     New-NetFirewallRule -DisplayName "NVIDIA GameStream TCP" -Direction Inbound -LocalPort 47984,47989,48010 -Program 'C:\Program Files\NVIDIA Corporation\NvStreamSrv\nvstreamer.exe' -Protocol TCP -Action Allow | Out-Null
     New-NetFirewallRule -DisplayName "NVIDIA GameStream UDP" -Direction Inbound -LocalPort 47998,47999,48000,48010 -Program 'C:\Program Files\NVIDIA Corporation\NvStreamSrv\nvstreamer.exe' -Protocol UDP -Action Allow | Out-Null
